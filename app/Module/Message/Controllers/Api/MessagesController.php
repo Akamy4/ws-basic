@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Module\Messages\Controllers\Api;
+namespace App\Module\Message\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Module\Messages\Events\MessageStoredEvent;
-use App\Module\Messages\Models\Message;
-use App\Module\Messages\Requests\StoreRequest;
-use App\Module\Messages\Resources\Messages\MessageResource;
+use App\Module\Message\Events\MessageStoredEvent;
+use App\Module\Message\Models\Message;
+use App\Module\Message\Requests\StoreRequest;
+use App\Module\Message\Resources\Messages\MessageResource;
 use Inertia\Response;
 
-final class MessageController extends Controller
+final class MessagesController extends Controller
 {
     public function index(): Response
     {

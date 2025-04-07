@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Module\Messages\Resources\Messages;
+namespace App\Module\Message\Resources\Messages;
 
-use App\Module\Messages\Models\Message;
+use App\Module\Message\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 

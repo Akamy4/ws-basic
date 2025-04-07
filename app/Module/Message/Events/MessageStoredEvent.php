@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Module\Messages\Events;
+namespace App\Module\Message\Events;
 
-use App\Module\Messages\Models\Message;
-use App\Module\Messages\Resources\Messages\MessageResource;
+use App\Module\Message\Models\Message;
+use App\Module\Message\Resources\Messages\MessageResource;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
