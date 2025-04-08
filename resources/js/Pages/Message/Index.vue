@@ -27,7 +27,6 @@ export default {
             axios.post(`/messages`, { body: this.body })
                 .then(res => {
                     this.localMessages.unshift(res.data)
-                    this.body = ''
                 })
         }
     }

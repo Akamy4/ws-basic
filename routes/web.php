@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Module\Chat\Controllers\Api\ChatsController;
 use App\Module\Message\Controllers\Api\MessagesController;
 use App\Module\User\Controllers\Api\UsersController;
 use Illuminate\Foundation\Application;
@@ -37,6 +38,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/users/{id}', [UsersController::class, 'show'])->name('users.show');
     Route::post('/users/{id}/like', [UsersController::class, 'like'])->name('users.like');
+
+    Route::get('/chats/{userId}', [ChatsController::class, 'chat'])->name('users.chat');
+    Route::post('/chats', [ChatsController::class, 'store'])->name('users.store');
 
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
