@@ -1,33 +1,42 @@
-<script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
-import { Head } from '@inertiajs/vue3'
-import { ref, onMounted } from 'vue'
+<script>
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 
-const props = defineProps({
-    messages: Array
-})
+export default {
+    name: "Index",
+    components: {AuthenticatedLayout},
 
-const body = ref('')
-const messages = ref([...props.messages])
+    props: ['messages'],
 
-const store = () => {
-    axios.post('/messages', { body: body.value }).then(res => {
-        messages.value.unshift(res.data)
-        body.value = ''
-    })
+    data() {
+        return {
+            body: null,
+            localMessages: [...this.messages],
+        }
+    },
+
+
+    created() {
+        window.Echo.channel('message-stored')
+            .listen('.message-stored', res => {
+                this.localMessages.unshift(res.message)
+            })
+    },
+
+    methods: {
+        store() {
+            axios.post(`/messages`, { body: this.body })
+                .then(res => {
+                    this.localMessages.unshift(res.data)
+                    this.body = ''
+                })
+        }
+    }
 }
-
-onMounted(() => {
-    window.Echo.channel('message-stored')
-        .listen('.message-stored', res => {
-            messages.value.unshift(res.message)
-        })
-})
 </script>
 
 <template>
     <AuthenticatedLayout>
-        <Head title="Messages" />
+        <Head><title>Messages</title></Head>
 
         <div class="w-2/3 mx-auto py-6">
             <!-- Ввод нового сообщения -->
@@ -52,7 +61,7 @@ onMounted(() => {
             </div>
 
             <!-- Таблица сообщений -->
-            <div v-if="messages.length > 0" class="mb-6">
+            <div v-if="localMessages.length > 0" class="mb-6">
                 <h3 class="text-xl font-semibold mb-4">Messages</h3>
                 <table class="w-full table-auto border border-gray-300 rounded-lg overflow-hidden">
                     <thead class="bg-gray-100">
@@ -64,9 +73,8 @@ onMounted(() => {
                     </thead>
                     <tbody>
                     <tr
-                        v-for="message in messages"
-                        :key="message.id"
-                        class="hover:bg-gray-50"
+                    v-for="message in localMessages" :key="message.id"
+                    class="hover:bg-gray-50"
                     >
                         <td class="px-4 py-2 border text-center">{{ message.id }}</td>
                         <td class="px-4 py-2 border">{{ message.body }}</td>

@@ -26,7 +26,6 @@ export default {
 
     methods: {
         sendLike() {
-            console.log(`like-stored-${this.$page.props.auth.user.id}`)
             axios.post(`/users/${this.user.id}/like`)
                 .then(res => {
                     this.likeDetails = res.data
